@@ -38,10 +38,14 @@ var CalculatorSteps = function() {
   });
 
   this.Then('the result should equal $result', function (result, callback) {
-    browser.waitForAngular();
-    expect(this.page.getResult()).to.eventually.equal(result)
+    setTimeout(checkCondition(result, callback), 10000)
+    //expect(this.page.getResult()).to.eventually.equal(result)
     
   });
 };
+
+function checkCondition(result, callback) {
+	expect(this.page.getResult()).to.eventually.equal(result).and.notify(callback);
+}
 
 module.exports = CalculatorSteps;
